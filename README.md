@@ -24,9 +24,17 @@
 
 ## Description
 
-implementasi sederhana dari project nest js dengan immplementasi hexagonal pattern, JWt+Argon 2 , Redis, Docker, clean code, reuseable code.
+implementasi sederhana dari project nest js dengan immplementasi hexagonal pattern,singleton pattren, JWt+Argon 2 , Redis, Docker, clean code, reuseable code dan lainya
 
 untuk kedepanya bakalan di update insya Alloh terimakasih
+
+## Migrate
+
+untuk configurasi lihat di docker-compose.yml
+
+```migrate database
+npx prisma migrate
+```
 
 ## Testing
 
