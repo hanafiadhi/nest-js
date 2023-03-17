@@ -24,7 +24,13 @@
 
 ## Description
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+implementasi sederhana dari project nest js dengan immplementasi hexagonal pattern, JWt+Argon 2 , Redis, Docker, clean code, reuseable code.
+
+untuk kedepanya bakalan di update insya Alloh terimakasih
+
+## Testing
+
+localhost:3000/customer
 
 ## Installation
 
