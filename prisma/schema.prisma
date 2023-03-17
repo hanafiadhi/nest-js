@@ -1,0 +1,75 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id Int @id @default(autoincrement())
+  username String @db.VarChar(100) @unique
+  password String @db.Text
+  customer Customer?
+  orders Orders[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+} 
+
+model Customer{
+  id Int @id @default(autoincrement())
+  firstname String? @db.VarChar(100)
+  lastname String? @db.VarChar(100)
+  user   User    @relation(fields: [userId], references: [id])
+  userId Int  @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Orders{
+  id Int @id @default(autoincrement())
+  user   User    @relation(fields: [user_Id], references: [id])
+  user_Id Int
+  orders OrderDetails[]
+  totalproduct Int @db.Integer
+  totalprice Float @db.DoublePrecision
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model ProductCategory{
+  id Int @id @default(autoincrement())
+  name String @db.VarChar(100)
+  description String @db.VarChar(200)
+  product  Product[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+model Product {
+  id Int @id @default(autoincrement())
+  name String @db.VarChar(100)
+  description String @db.VarChar(200)
+  product ProductCategory @relation(fields: [category_id],references: [id])
+  category_id Int
+  orders OrderDetails[]
+  price Float @db.DoublePrecision
+  image String @db.VarChar(200)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+
+model OrderDetails{
+  id Int @id @default(autoincrement())
+  order Orders @relation(fields: [order_id],references: [id])
+  order_id Int
+  product Product @relation(fields: [product_id],references: [id])
+  product_id Int
+  quantity Int @db.Integer
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
