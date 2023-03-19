@@ -28,7 +28,7 @@ implementasi sederhana dari project nest js dengan immplementasi hexagonal patte
 
 untuk kedepanya bakalan di update insya Alloh terimakasih
 
-## Migrate
+## Migrate & seede
 
 untuk configurasi lihat di docker-compose.yml
 
@@ -36,9 +36,17 @@ untuk configurasi lihat di docker-compose.yml
 npx prisma migrate
 ```
 
+Tutor migration [click](https://www.prisma.io/docs/guides/database/developing-with-prisma-migrate)
+
+```seed dummy data
+npx prisma prisma db seed
+```
+
+Tutor seed [click](https://www.prisma.io/docs/guides/database/seed-database)
+
 ## Testing
 
-localhost:3000/customer
+up comming with openapi swager or postman
 
 ## Installation
 
