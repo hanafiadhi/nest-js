@@ -1,8 +1,13 @@
-import { ForbiddenException, Injectable } from '@nestjs/common';
+import {
+  ForbiddenException,
+  Injectable,
+  HttpException,
+  HttpStatus,
+} from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { AuthDto } from './dto/auth.dto';
 import * as argon from 'argon2';
-import { PrismaClientKnownRequestError } from '@prisma/client/runtime';
+import { Prisma } from '@prisma/client';
 
 @Injectable()
 export class AuthService {
@@ -24,10 +29,16 @@ export class AuthService {
       delete user.password;
       return user;
     } catch (error) {
-      if (error instanceof PrismaClientKnownRequestError) {
-        throw new ForbiddenException('Credential taken');
+      if (error instanceof Prisma.PrismaClientKnownRequestError) {
+        if (error.code === 'P2002') {
+          throw new ForbiddenException({
+            statusCode: HttpStatus.FORBIDDEN,
+            message: 'Credential Taken',
+            error: 'Forbiden',
+          });
+        }
       }
-      throw new ForbiddenException('gagal');
+      throw error;
     }
   }
   async signin(data: AuthDto) {
@@ -43,7 +54,7 @@ export class AuthService {
       delete user.password;
       return user;
     } catch (error) {
-      throw new ForbiddenException('Credential taken');
+      throw error;
     }
   }
 }
